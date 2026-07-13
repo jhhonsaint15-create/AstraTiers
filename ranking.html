@@ -10,63 +10,75 @@
 <style>
 
 body{
-    margin:0;
-    background:#0b0f19;
-    color:white;
-    font-family:Arial;
+
+margin:0;
+background:#070b14;
+color:white;
+font-family:Arial;
+
 }
+
 
 
 header{
-    background:#111827;
-    padding:20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+
+background:#111827;
+padding:20px 60px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+
 }
+
 
 
 .logo{
-    color:#8b5cf6;
-    font-size:30px;
-    font-weight:bold;
+
+font-size:35px;
+font-weight:bold;
+color:#8b5cf6;
+
 }
 
 
+
 button{
-    background:#1f2937;
-    color:white;
-    border:0;
-    padding:10px 18px;
-    border-radius:8px;
-    cursor:pointer;
+
+background:#8b5cf6;
+color:white;
+border:0;
+padding:12px 20px;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+
 }
 
 
 button:hover{
-    background:#8b5cf6;
+
+background:#7c3aed;
+
 }
 
-
-a{
-    text-decoration:none;
-}
 
 
 .container{
-    width:90%;
-    margin:auto;
+
+width:90%;
+margin:auto;
+
 }
 
 
 
 .admin{
 
-    display:none;
-    background:#111827;
-    padding:20px;
-    margin-top:20px;
-    border-radius:10px;
+display:none;
+background:#111827;
+padding:20px;
+border-radius:15px;
+margin-top:20px;
 
 }
 
@@ -74,8 +86,10 @@ a{
 
 input,select{
 
-    padding:10px;
-    margin:5px;
+padding:10px;
+margin:5px;
+border-radius:8px;
+border:0;
 
 }
 
@@ -83,11 +97,11 @@ input,select{
 
 .modos{
 
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:10px;
-    margin:30px;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+margin:30px;
 
 }
 
@@ -95,29 +109,21 @@ input,select{
 
 .player{
 
-    background:#111827;
-    padding:15px;
-    margin:10px;
-    border-radius:10px;
-
-    display:flex;
-    justify-content:space-between;
+background:#111827;
+padding:15px;
+margin:10px;
+border-radius:12px;
 
 }
 
 
 
-
-/* TIERS HORIZONTAL */
-
 .tiers{
 
-    display:flex;
-    flex-direction:row;
-    flex-wrap:nowrap;
-    justify-content:center;
-    gap:20px;
-    overflow-x:auto;
+display:grid;
+grid-template-columns:repeat(5,150px);
+justify-content:center;
+gap:20px;
 
 }
 
@@ -125,11 +131,10 @@ input,select{
 
 .tier{
 
-    min-width:150px;
-    background:#111827;
-    padding:15px;
-    border-radius:10px;
-    text-align:center;
+background:#111827;
+padding:20px;
+border-radius:15px;
+text-align:center;
 
 }
 
@@ -137,9 +142,10 @@ input,select{
 
 .tier h2{
 
-    color:#8b5cf6;
+color:#8b5cf6;
 
 }
+
 
 
 </style>
@@ -148,7 +154,9 @@ input,select{
 </head>
 
 
+
 <body>
+
 
 
 <header>
@@ -160,7 +168,6 @@ AstraTiers
 
 
 <div>
-
 
 <a href="index.html">
 
@@ -203,30 +210,16 @@ Admin
 
 <select id="modo">
 
-
-<option>Vanilla</option>
-<option>Sword</option>
-<option>Axe</option>
-<option>UHC</option>
-<option>Pot</option>
-<option>NethPot</option>
-<option>SMP</option>
-<option>Mace</option>
-
-
 </select>
 
 
-
 <select id="tier">
-
 
 <option>HT1</option>
 <option>HT2</option>
 <option>HT3</option>
 <option>HT4</option>
 <option>HT5</option>
-
 
 <option>LT1</option>
 <option>LT2</option>
@@ -246,46 +239,13 @@ Adicionar
 </button>
 
 
-</div>  <div class="modos">
+</div><div class="modos" id="botoesModos">
 
 <button onclick="show('ALL')">
-ALL
-</button>
-
-<button onclick="show('Vanilla')">
-Vanilla
-</button>
-
-<button onclick="show('Sword')">
-Sword
-</button>
-
-<button onclick="show('Axe')">
-Axe
-</button>
-
-<button onclick="show('UHC')">
-UHC
-</button>
-
-<button onclick="show('Pot')">
-Pot
-</button>
-
-<button onclick="show('NethPot')">
-NethPot
-</button>
-
-<button onclick="show('SMP')">
-SMP
-</button>
-
-<button onclick="show('Mace')">
-Mace
+ALL Ranking
 </button>
 
 </div>
-
 
 
 <h1 id="titulo">
@@ -296,7 +256,9 @@ ALL Ranking
 <div id="conteudo"></div>
 
 
+
 </div>
+
 
 
 
@@ -317,11 +279,103 @@ JSON.parse(localStorage.getItem("jogadores")) || [];
 
 
 
+// ATÉ 15 MODOS
+
+let modos =
+JSON.parse(localStorage.getItem("modos")) || 
+[
+"Vanilla",
+"Sword",
+"Axe",
+"UHC",
+"Pot",
+"NethPot",
+"SMP",
+"Mace"
+];
+
+
+
+
+
+function carregarModos(){
+
+
+let select =
+document.getElementById("modo");
+
+
+select.innerHTML="";
+
+
+
+modos.forEach(m=>{
+
+
+select.innerHTML +=
+`
+<option>${m}</option>
+`;
+
+
+
+});
+
+
+
+
+
+let botoes =
+document.getElementById("botoesModos");
+
+
+
+botoes.innerHTML =
+
+`
+<button onclick="show('ALL')">
+ALL Ranking
+</button>
+`;
+
+
+
+modos.forEach(m=>{
+
+
+botoes.innerHTML +=
+
+`
+
+<button onclick="show('${m}')">
+
+${m}
+
+</button>
+
+`;
+
+
+
+});
+
+
+}
+
+
+
+carregarModos();
+
+
+
+
+
 
 function loginAdmin(){
 
 
-let senha=prompt("Código Admin");
+let senha =
+prompt("Código Admin");
 
 
 
@@ -354,6 +408,8 @@ alert("Senha errada");
 
 
 
+
+
 function addPlayer(){
 
 
@@ -371,13 +427,61 @@ modo:modo.value,
 
 tier:tier.value
 
+
 });
+
 
 
 save();
 
 
 show("ALL");
+
+
+}
+
+
+
+
+
+
+function save(){
+
+
+localStorage.setItem(
+"jogadores",
+JSON.stringify(jogadores)
+);
+
+
+}
+
+
+
+
+
+
+function converterTier(t){
+
+
+if(t=="HT1" || t=="LT1")
+return "Tier 1";
+
+
+if(t=="HT2" || t=="LT2")
+return "Tier 2";
+
+
+if(t=="HT3" || t=="LT3")
+return "Tier 3";
+
+
+if(t=="HT4" || t=="LT4")
+return "Tier 4";
+
+
+if(t=="HT5" || t=="LT5")
+return "Tier 5";
 
 
 }
@@ -402,88 +506,78 @@ show("ALL");
 
 
 }
-
-
-
-
-function save(){
-
-
-localStorage.setItem(
-
-"jogadores",
-
-JSON.stringify(jogadores)
-
-);
-
-
-}
-
-
-
-
-
-
-
-function converterTier(t){
-
-
-if(t=="HT1" || t=="LT1") return "Tier 1";
-
-
-if(t=="HT2" || t=="LT2") return "Tier 2";
-
-
-if(t=="HT3" || t=="LT3") return "Tier 3";
-
-
-if(t=="HT4" || t=="LT4") return "Tier 4";
-
-
-if(t=="HT5" || t=="LT5") return "Tier 5";
-
-
-return "";
-
-}
-
-
-
-
-
-
-
 function show(modo){
 
 
-let conteudo=document.getElementById("conteudo");
+let conteudo =
+document.getElementById("conteudo");
+
 
 
 document.getElementById("titulo").innerHTML =
 modo+" Ranking";
 
 
+
 conteudo.innerHTML="";
 
 
 
+
+
+// ALL RANKING
+
 if(modo=="ALL"){
+
+
+
+let jogadoresUnicos = {};
+
 
 
 jogadores.forEach((j,i)=>{
 
 
-conteudo.innerHTML+=`
+if(!jogadoresUnicos[j.nick]){
+
+
+jogadoresUnicos[j.nick]=[];
+
+
+}
+
+
+
+jogadoresUnicos[j.nick].push(
+
+j.modo + ": " + j.tier
+
+);
+
+
+
+});
+
+
+
+
+
+
+Object.keys(jogadoresUnicos).forEach(nick=>{
+
+
+conteudo.innerHTML +=
+
+`
 
 <div class="player">
 
 
-<span>
+<b>${nick}</b>
 
-${j.nick} | ${j.regiao} | ${j.modo}: ${j.tier}
+<br>
 
-</span>
+${jogadoresUnicos[nick].join(" | ")}
 
 
 
@@ -491,7 +585,9 @@ ${admin ?
 
 `
 
-<button onclick="excluir(${i})">
+<br><br>
+
+<button onclick="excluir(${Object.keys(jogadoresUnicos).indexOf(nick)})">
 
 Excluir
 
@@ -509,6 +605,7 @@ Excluir
 
 </div>
 
+
 `;
 
 
@@ -516,12 +613,23 @@ Excluir
 });
 
 
+
 }
+
+
+
+
+
+
+// MODOS INDIVIDUAIS
 
 else{
 
 
-conteudo.innerHTML=`
+
+conteudo.innerHTML=
+
+`
 
 <div class="tiers">
 
@@ -531,7 +639,9 @@ conteudo.innerHTML=`
 
 
 
-let area=document.querySelector(".tiers");
+let area =
+document.querySelector(".tiers");
+
 
 
 
@@ -547,42 +657,69 @@ let lista=[
 
 
 
+
+
 lista.forEach(t=>{
+
 
 
 let nomes="";
 
 
+
 jogadores.forEach(j=>{
 
 
-if(j.modo==modo && converterTier(j.tier)==t){
+if(
+j.modo==modo &&
+converterTier(j.tier)==t
+){
 
 
-nomes+=`
+nomes +=
 
-<p>${j.nick}</p>
+`
+
+<p>
+${j.nick}
+</p>
 
 `;
 
+
+
 }
+
 
 
 });
 
 
 
-area.innerHTML+=`
+
+
+area.innerHTML +=
+
+`
 
 <div class="tier">
 
-<h2>${t}</h2>
+
+<h2>
+
+${t}
+
+</h2>
+
 
 ${nomes}
 
+
 </div>
 
+
 `;
+
 
 
 });
@@ -592,13 +729,26 @@ ${nomes}
 }
 
 
+
+
+
 }
+
+
+
+
+
+
+
 show("ALL");
+
 
 
 </script>
 
 
+
 </body>
+
 
 </html>
