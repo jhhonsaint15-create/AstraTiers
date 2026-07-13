@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>AstraTiers Rankings</title>
+
+<style>
+body{
+margin:0;
+background:#0b0f19;
+color:white;
+font-family:Arial;
+}
+
+header{
+background:#111827;
+padding:20px;
+display:flex;
+justify-content:space-between;
+}
+
+.logo{
+color:#8b5cf6;
+font-size:30px;
+font-weight:bold;
+}
+
+button{
+background:#1f2937;
+color:white;
+border:0;
+padding:10px 15px;
+border-radius:8px;
+cursor:pointer;
+}
+
+button:hover{
+background:#8b5cf6;
+}
+
+.container{
+width:90%;
+margin:auto;
+}
+
+.admin{
+display:none;
+background:#111827;
+padding:20px;
+margin-top:20px;
+border-radius:10px;
+}
+
+input,select{
+padding:10px;
+margin:5px;
+}
+
+.modos{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:10px;
+margin:30px;
+}
+
+.player{
+background:#111827;
+padding:15px;
+margin:10px;
+border-radius:10px;
+display:flex;
+justify-content:space-between;
+}
+
+.tiers{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+}
+
+.tier{
+background:#111827;
+width:140px;
+min-height:120px;
+padding:15px;
+text-align:center;
+border-radius:10px;
+}
+
+.tier h2{
+color:#8b5cf6;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+AstraTiers
+</div>
+
+<div>
+<a href="index.html">
+<button>Home</button>
+</a>
+
+<button onclick="adminLogin()">Admin</button>
+</div>
+
+</header>
+
+
+<div class="container">
+
+
+<div class="admin" id="admin">
+
+<h2>Painel Admin</h2>
+
+<input id="nick" placeholder="Nick">
+
+<input id="regiao" placeholder="Região">
+
+<select id="modo">
+<option>Vanilla</option>
+<option>Sword</option>
+<option>Axe</option>
+<option>UHC</option>
+<option>Pot</option>
+<option>NethPot</option>
+<option>SMP</option>
+<option>Mace</option>
+</select>
+
+
+<select id="tier">
+<option>HT1</option>
+<option>HT2</option>
+<option>HT3</option>
+<option>HT4</option>
+<option>HT5</option>
+<option>LT1</option>
+<option>LT2</option>
+<option>LT3</option>
+<option>LT4</option>
+<option>LT5</option>
+</select>
+
+<button onclick="addPlayer()">Adicionar</button>
+
+</div>
+
+
+
+<div class="modos">
+
+<button onclick="show('ALL')">ALL</button>
+<button onclick="show('Vanilla')">Vanilla</button>
+<button onclick="show('Sword')">Sword</button>
+<button onclick="show('Axe')">Axe</button>
+<button onclick="show('UHC')">UHC</button>
+<button onclick="show('Pot')">Pot</button>
+<button onclick="show('NethPot')">NethPot</button>
+<button onclick="show('SMP')">SMP</button>
+<button onclick="show('Mace')">Mace</button>
+
+</div>
+
+
+<h1 id="title">ALL Ranking</h1>
+
+<div id="content"></div>
+
+
+</div>
+
+
+<script>
+
+let senhaAdmin="AstraTiers_Admin_2026_MCTiers_Ranking_Seguro_8472_Xp9KzL5Qw3Vn8Rt6Yh1";
+
+let admin=false;
+
+
+let players=JSON.parse(localStorage.getItem("players")) || [];
+
+
+
+function adminLogin(){
+
+let senha=prompt("Código Admin");
+
+if(senha===senhaAdmin){
+
+admin=true;
+
+document.getElementById("admin").style.display="block";
+
+alert("Admin liberado");
+
+}
+
+else{
+
+alert("Senha errada");
+
+}
+
+}
+
+
+
+function addPlayer(){
+
+if(!admin)return;
+
+players.push({
+
+nick:nick.value,
+regiao:regiao.value,
+modo:modo.value,
+tier:tier.value
+
+});
+
+save();
+
+show("ALL");
+
+}
+
+
+
+function removePlayer(i){
+
+if(!admin)return;
+
+players.splice(i,1);
+
+save();
+
+show("ALL");
+
+}
+
+
+
+function save(){
+
+localStorage.setItem("players",JSON.stringify(players));
+
+}
+
+
+
+function show(modo){
+
+title.innerHTML=modo+" Ranking";
+
+content.innerHTML="";
+
+
+if(modo=="ALL"){
+
+
+players.forEach((p,i)=>{
+
+content.innerHTML+=`
+
+<div class="player">
+
+${p.nick} | ${p.regiao} | ${p.modo}: ${p.tier}
+
+${admin?`<button onclick="removePlayer(${i})">Excluir</button>`:""}
+
+</div>
+
+`;
+
+});
+
+
+}
+
+else{
+
+
+content.innerHTML="<div class='tiers'>";
+
+
+let tiers=[
+"HT1","HT2","HT3","HT4","HT5",
+"LT1","LT2","LT3","LT4","LT5"
+];
+
+
+tiers.forEach(t=>{
+
+
+let nomes="";
+
+
+players.forEach(p=>{
+
+if(p.modo==modo && p.tier==t){
+
+nomes+=`<p>${p.nick}</p>`;
+
+}
+
+});
+
+
+content.innerHTML+=`
+
+<div class="tier">
+
+<h2>${t}</h2>
+
+${nomes}
+
+</div>
+
+`;
+
+});
+
+
+content.innerHTML+="</div>";
+
+}
+
+
+}
+
+
+show("ALL");
+
+</script>
+
+
+</body>
+</html>
