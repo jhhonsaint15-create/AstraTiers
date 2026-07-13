@@ -101,15 +101,21 @@ input,select{
 
 .tiers{
 
-    display:flex !important;
-    flex-direction:row !important;
-    flex-wrap:nowrap !important;
+    display:grid !important;
+    grid-template-columns: repeat(5, 150px);
     justify-content:center;
-    align-items:flex-start;
     gap:20px;
     width:100%;
-    overflow-x:auto;
+}
 
+
+.tier{
+    width:150px;
+    min-height:150px;
+    background:#111827;
+    padding:15px;
+    border-radius:10px;
+    text-align:center;
 }
 
 
