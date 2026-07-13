@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -11,66 +11,134 @@
 
 body{
     margin:0;
-    background:#0b0f19;
+    background:#070b14;
     color:white;
-    font-family:Arial;
+    font-family:Arial, sans-serif;
 }
 
 
 header{
 
+    height:80px;
     background:#111827;
-    padding:20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 60px;
 
 }
 
 
 .logo{
 
-    color:#8b5cf6;
     font-size:35px;
     font-weight:bold;
+    color:#8b5cf6;
 
 }
 
 
-.container{
 
-    text-align:center;
-    margin-top:100px;
+.hero{
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:80px;
+    padding:80px;
 
 }
+
+
+
+.hero img{
+
+    width:450px;
+    border-radius:20px;
+
+}
+
+
+
+.text h1{
+
+    font-size:60px;
+    margin:0;
+
+}
+
+
+.text span{
+
+    color:#8b5cf6;
+
+}
+
+
+
+.text p{
+
+    font-size:22px;
+    color:#9ca3af;
+
+}
+
+
+
+.buttons{
+
+    display:flex;
+    gap:25px;
+    margin-top:40px;
+
+}
+
 
 
 button{
 
-    background:#1f2937;
-    color:white;
+    width:250px;
+    height:80px;
     border:0;
-    padding:15px 40px;
-    margin:10px;
-    border-radius:10px;
-    font-size:18px;
+    border-radius:15px;
+    background:#8b5cf6;
+    color:white;
+    font-size:25px;
+    font-weight:bold;
     cursor:pointer;
 
 }
 
 
+
 button:hover{
 
-    background:#8b5cf6;
+    background:#7c3aed;
 
 }
 
 
-a{
 
-    text-decoration:none;
+.visitors{
+
+    background:#111827;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+    width:250px;
 
 }
+
+
+
+.visitors h2{
+
+    color:#8b5cf6;
+
+}
+
 
 </style>
-
 
 </head>
 
@@ -88,38 +156,114 @@ AstraTiers
 
 
 
-<div class="container">
+<section class="hero">
 
+
+<div class="text">
 
 <h1>
-Bem-vindo ao AstraTiers
+Minecraft <span>Tier Ranking</span>
 </h1>
 
+
+<p>
+Veja os melhores jogadores competitivos.
+</p>
+
+
+
+<div class="buttons">
 
 
 <a href="ranking.html">
 
 <button>
-🏆 Rankings
+Rankings
 </button>
 
 </a>
 
 
 
-<a href="https://discord.gg/ugjKN6skDj">
+<a href="#">
 
 <button>
-💬 Discord
+Discord
 </button>
 
 </a>
-
 
 
 </div>
 
 
+</div>
+
+
+
+<div>
+
+
+<img src="hero.png">
+
+
+<div class="visitors">
+
+<h2 id="contador">
+0
+</h2>
+
+<p>
+Visitantes
+</p>
+
+
+</div>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+<script>
+
+
+let visitas =
+localStorage.getItem("visitas");
+
+
+if(!visitas){
+
+visitas=0;
+
+}
+
+
+visitas++;
+
+
+localStorage.setItem(
+"visitas",
+visitas
+);
+
+
+
+document.getElementById(
+"contador"
+).innerHTML=visitas;
+
+
+
+</script>
+
+
 </body>
 
 </html>
+```
