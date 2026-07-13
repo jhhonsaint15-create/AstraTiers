@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>AstraTiers Ranking</title>
 
+
 <style>
 
 body{
@@ -60,66 +61,77 @@ a{
 
 
 .admin{
+
     display:none;
     background:#111827;
     padding:20px;
-    border-radius:10px;
     margin-top:20px;
+    border-radius:10px;
+
 }
 
 
 
 input,select{
+
     padding:10px;
     margin:5px;
+
 }
 
 
 
 .modos{
+
     display:flex;
     justify-content:center;
     flex-wrap:wrap;
     gap:10px;
     margin:30px;
+
 }
 
 
 
 .player{
+
     background:#111827;
     padding:15px;
     margin:10px;
     border-radius:10px;
+
     display:flex;
     justify-content:space-between;
+
 }
 
 
 
-/* TIERS SEMPRE HORIZONTAL */
+
+/* TIERS HORIZONTAL */
 
 .tiers{
 
-    display:grid !important;
-    grid-template-columns: repeat(5, 150px);
+    display:flex;
+    flex-direction:row;
+    flex-wrap:nowrap;
     justify-content:center;
     gap:20px;
-    width:100%;
+    overflow-x:auto;
+
 }
 
 
+
 .tier{
-    width:150px;
-    min-height:150px;
+
+    min-width:150px;
     background:#111827;
     padding:15px;
     border-radius:10px;
     text-align:center;
+
 }
-
-
-
 
 
 
@@ -131,6 +143,7 @@ input,select{
 
 
 </style>
+
 
 </head>
 
@@ -150,14 +163,18 @@ AstraTiers
 
 
 <a href="index.html">
+
 <button>
 Home
 </button>
+
 </a>
 
 
 <button onclick="loginAdmin()">
+
 Admin
+
 </button>
 
 
@@ -167,7 +184,9 @@ Admin
 </header>
 
 
+
 <div class="container">
+
 
 
 <div id="admin" class="admin">
@@ -184,6 +203,7 @@ Admin
 
 <select id="modo">
 
+
 <option>Vanilla</option>
 <option>Sword</option>
 <option>Axe</option>
@@ -193,10 +213,13 @@ Admin
 <option>SMP</option>
 <option>Mace</option>
 
+
 </select>
 
 
+
 <select id="tier">
+
 
 <option>HT1</option>
 <option>HT2</option>
@@ -204,21 +227,26 @@ Admin
 <option>HT4</option>
 <option>HT5</option>
 
+
 <option>LT1</option>
 <option>LT2</option>
 <option>LT3</option>
 <option>LT4</option>
 <option>LT5</option>
 
+
 </select>
 
 
+
 <button onclick="addPlayer()">
+
 Adicionar
+
 </button>
 
 
-</div><div class="modos">
+</div>  <div class="modos">
 
 <button onclick="show('ALL')">
 ALL
@@ -265,12 +293,10 @@ ALL Ranking
 </h1>
 
 
-
 <div id="conteudo"></div>
 
 
 </div>
-
 
 
 
@@ -288,7 +314,6 @@ let admin=false;
 
 let jogadores =
 JSON.parse(localStorage.getItem("jogadores")) || [];
-
 
 
 
@@ -314,7 +339,6 @@ alert("Admin liberado");
 
 }
 
-
 else{
 
 
@@ -330,7 +354,6 @@ alert("Senha errada");
 
 
 
-
 function addPlayer(){
 
 
@@ -340,7 +363,6 @@ if(!admin)return;
 
 jogadores.push({
 
-
 nick:nick.value,
 
 regiao:regiao.value,
@@ -349,9 +371,7 @@ modo:modo.value,
 
 tier:tier.value
 
-
 });
-
 
 
 save();
@@ -361,8 +381,6 @@ show("ALL");
 
 
 }
-
-
 
 
 
@@ -374,9 +392,7 @@ function excluir(i){
 if(!admin)return;
 
 
-
 jogadores.splice(i,1);
-
 
 
 save();
@@ -390,17 +406,20 @@ show("ALL");
 
 
 
-
 function save(){
 
 
 localStorage.setItem(
+
 "jogadores",
+
 JSON.stringify(jogadores)
+
 );
 
 
 }
+
 
 
 
@@ -412,14 +431,20 @@ function converterTier(t){
 
 if(t=="HT1" || t=="LT1") return "Tier 1";
 
+
 if(t=="HT2" || t=="LT2") return "Tier 2";
+
 
 if(t=="HT3" || t=="LT3") return "Tier 3";
 
+
 if(t=="HT4" || t=="LT4") return "Tier 4";
+
 
 if(t=="HT5" || t=="LT5") return "Tier 5";
 
+
+return "";
 
 }
 
@@ -435,10 +460,8 @@ function show(modo){
 let conteudo=document.getElementById("conteudo");
 
 
-
 document.getElementById("titulo").innerHTML =
 modo+" Ranking";
-
 
 
 conteudo.innerHTML="";
@@ -453,32 +476,41 @@ jogadores.forEach((j,i)=>{
 
 conteudo.innerHTML+=`
 
-<div class="tier" style="display:inline-block;">
-
-<h2>${t}</h2>
-
-${nomes}
-
-</div>
-
-`;
+<div class="player">
 
 
+<span>
+
+${j.nick} | ${j.regiao} | ${j.modo}: ${j.tier}
+
+</span>
+
+
+
+${admin ?
+
+`
 
 <button onclick="excluir(${i})">
+
 Excluir
+
 </button>
 
 `
+
 :
+
 ""
+
 }
+
 
 
 </div>
 
-
 `;
+
 
 
 });
@@ -489,12 +521,17 @@ Excluir
 else{
 
 
-conteudo.innerHTML=
-`
+conteudo.innerHTML=`
 
 <div class="tiers">
 
+</div>
+
 `;
+
+
+
+let area=document.querySelector(".tiers");
 
 
 
@@ -528,7 +565,6 @@ nomes+=`
 
 `;
 
-
 }
 
 
@@ -536,7 +572,7 @@ nomes+=`
 
 
 
-conteudo.innerHTML+=`
+area.innerHTML+=`
 
 <div class="tier">
 
@@ -549,26 +585,15 @@ ${nomes}
 `;
 
 
-
 });
 
 
-conteudo.innerHTML+=`
 
-</div>
-
-`;
-
-document.querySelector(".tiers").style.display="flex";
-document.querySelector(".tiers").style.flexDirection="row";
-document.querySelector(".tiers").style.flexWrap="nowrap";
+}
 
 
-
-console.log("ranking carregado");
-
-
-}show("ALL");
+}
+show("ALL");
 
 
 </script>
