@@ -118,26 +118,6 @@ button:hover{
 }
 
 
-
-.visitors{
-
-    background:#111827;
-    padding:25px;
-    border-radius:15px;
-    text-align:center;
-    width:250px;
-
-}
-
-
-
-.visitors h2{
-
-    color:#8b5cf6;
-
-}
-
-
 </style>
 
 </head>
@@ -185,7 +165,7 @@ Rankings
 
 
 
-<a href="#">
+<a href="https://discord.gg/hsyHQB9SK" target="_blank">
 
 <button>
 Discord
@@ -207,60 +187,11 @@ Discord
 <img src="hero.png">
 
 
-<div class="visitors">
-
-<h2 id="contador">
-0
-</h2>
-
-<p>
-Visitantes
-</p>
-
-
-</div>
-
-
 </div>
 
 
 
 </section>
-
-
-
-
-<script>
-
-
-let visitas =
-localStorage.getItem("visitas");
-
-
-if(!visitas){
-
-visitas=0;
-
-}
-
-
-visitas++;
-
-
-localStorage.setItem(
-"visitas",
-visitas
-);
-
-
-
-document.getElementById(
-"contador"
-).innerHTML=visitas;
-
-
-
-</script>
 
 
 </body>
