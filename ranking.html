@@ -453,15 +453,17 @@ jogadores.forEach((j,i)=>{
 
 conteudo.innerHTML+=`
 
-<div class="player">
+<div class="tier" style="display:inline-block;">
+
+<h2>${t}</h2>
+
+${nomes}
+
+</div>
+
+`;
 
 
-${j.nick} | ${j.regiao} | ${j.modo}: ${j.tier}
-
-
-
-${admin ? 
-`
 
 <button onclick="excluir(${i})">
 Excluir
