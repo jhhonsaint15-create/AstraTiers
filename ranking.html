@@ -1,4 +1,37 @@
-<!DOCTYPE html>
+function salvarJogador(){
+
+let nome = document.getElementById("nome").value;
+
+let modo = document.getElementById("modo").value;
+
+let tier = document.getElementById("tier").value;
+
+
+let jogadores = JSON.parse(
+localStorage.getItem("jogadores")
+) || [];
+
+
+jogadores.push({
+
+nome:nome,
+
+modo:modo,
+
+tier:tier
+
+});
+
+
+localStorage.setItem(
+"jogadores",
+JSON.stringify(jogadores)
+);
+
+
+mostrarRanking();
+
+}<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
