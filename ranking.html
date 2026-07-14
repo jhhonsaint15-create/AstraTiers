@@ -4,179 +4,267 @@
 <head>
 
 <meta charset="UTF-8">
-<title>AstraTiers Ranking</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>AstraTiers Ranking</title>
 
 <style>
 
-body{
-
+*{
 margin:0;
-background:#070b14;
-color:white;
-font-family:Arial;
-
+padding:0;
+box-sizing:border-box;
 }
 
+body{
 
+background:#090d17;
+color:white;
+font-family:Arial,Helvetica,sans-serif;
+
+}
 
 header{
 
-background:#111827;
-padding:20px 60px;
+height:80px;
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
 
+padding:0 40px;
+
+background:#111827;
+
+border-bottom:2px solid #8b5cf6;
+
 }
-
-
 
 .logo{
 
-font-size:35px;
+font-size:40px;
+
 font-weight:bold;
-color:#8b5cf6;
+
+color:#a855f7;
+
+text-shadow:
+0 2px 0 #7e22ce,
+0 4px 0 #5b21b6,
+0 6px 10px rgba(0,0,0,.5);
 
 }
 
+.top{
 
+display:flex;
 
-button{
+gap:15px;
+
+}
+
+.top button{
+
+padding:12px 22px;
 
 background:#8b5cf6;
+
 color:white;
-border:0;
-padding:12px 20px;
+
+border:none;
+
 border-radius:10px;
-cursor:pointer;
+
+font-size:15px;
+
 font-weight:bold;
+
+cursor:pointer;
+
+transition:.2s;
 
 }
 
-
-button:hover{
+.top button:hover{
 
 background:#7c3aed;
 
+transform:scale(1.05);
+
 }
-
-
 
 .container{
 
-width:90%;
+width:95%;
+
 margin:auto;
 
 }
 
-
-
 .admin{
 
 display:none;
-background:#111827;
+
+margin-top:25px;
+
+background:#141b2d;
+
 padding:20px;
+
 border-radius:15px;
-margin-top:20px;
 
 }
 
+.admin h2{
 
+margin-bottom:15px;
 
-input,select{
+color:#a855f7;
 
-padding:10px;
+}
+
+.admin input,
+.admin select{
+
+width:220px;
+
+padding:12px;
+
 margin:5px;
+
+background:#0f172a;
+
+border:none;
+
 border-radius:8px;
-border:0;
+
+color:white;
 
 }
 
+.admin button{
 
+margin-top:10px;
+
+}
 
 .modos{
 
+margin:30px 0;
+
 display:flex;
-flex-wrap:wrap;
+
 justify-content:center;
+
+flex-wrap:wrap;
+
 gap:10px;
-margin:30px;
 
 }
 
+.modos button{
 
+background:#1e293b;
+
+}
+
+.modos button:hover{
+
+background:#8b5cf6;
+
+}
+
+#titulo{
+
+text-align:center;
+
+font-size:35px;
+
+margin-bottom:30px;
+
+color:#a855f7;
+
+}
+
+#conteudo{
+
+width:100%;
+
+}
 
 .player{
 
-background:#111827;
+background:#141b2d;
+
 padding:15px;
-margin:10px;
+
 border-radius:12px;
 
+margin-bottom:10px;
+
 }
-
-
 
 .tiers{
 
 display:grid;
-grid-template-columns:repeat(5,150px);
+
+grid-template-columns:repeat(5,180px);
+
 justify-content:center;
+
 gap:20px;
 
 }
 
-
-
 .tier{
 
-background:#111827;
-padding:20px;
-border-radius:15px;
+background:#141b2d;
+
+padding:15px;
+
+border-radius:12px;
+
 text-align:center;
 
 }
 
-
-
 .tier h2{
 
-color:#8b5cf6;
+color:#a855f7;
+
+margin-bottom:15px;
 
 }
 
-
-
 </style>
-
 
 </head>
 
-
-
 <body>
-
-
 
 <header>
 
-
 <div class="logo">
+
 AstraTiers
+
 </div>
 
-
-<div>
+<div class="top">
 
 <a href="index.html">
 
-<button>
-Home
-</button>
+<button>Home</button>
 
 </a>
 
+<a href="SEU_LINK_DO_DISCORD" target="_blank">
+
+<button>Discord</button>
+
+</a>
 
 <button onclick="loginAdmin()">
 
@@ -184,31 +272,36 @@ Admin
 
 </button>
 
-
 </div>
-
 
 </header>
 
-
-
-<div class="container">
-
-
+<div class="container"><!-- PAINEL ADMIN -->
 
 <div id="admin" class="admin">
 
-
 <h2>Painel Admin</h2>
 
+<input
+id="nick"
+placeholder="Nick do jogador"
+>
 
-<input id="nick" placeholder="Nick">
-
-
-<input id="regiao" placeholder="Região">
-
+<input
+id="regiao"
+placeholder="Região"
+>
 
 <select id="modo">
+
+<option>Vanilla</option>
+<option>Sword</option>
+<option>Axe</option>
+<option>UHC</option>
+<option>Pot</option>
+<option>NethPot</option>
+<option>SMP</option>
+<option>Mace</option>
 
 </select>
 
@@ -227,35 +320,96 @@ Admin
 <option>LT4</option>
 <option>LT5</option>
 
-
 </select>
-
 
 
 <button onclick="addPlayer()">
 
-Adicionar
+Salvar Tier
 
 </button>
 
+</div>
+<br><br>
 
-</div><div class="modos" id="botoesModos">
+<input id="novoModo" placeholder="Nome do novo modo">
+
+<button onclick="adicionarModo()">
+Criar Modo
+</button>
+
+
+
+
+<div class="modos">
 
 <button onclick="show('ALL')">
+
 ALL Ranking
+
+</button>
+
+<button onclick="show('Vanilla')">
+
+Vanilla
+
+</button>
+
+<button onclick="show('Sword')">
+
+Sword
+
+</button>
+
+<button onclick="show('Axe')">
+
+Axe
+
+</button>
+
+<button onclick="show('UHC')">
+
+UHC
+
+</button>
+
+<button onclick="show('Pot')">
+
+Pot
+
+</button>
+
+<button onclick="show('NethPot')">
+
+NethPot
+
+</button>
+
+<button onclick="show('SMP')">
+
+SMP
+
+</button>
+
+<button onclick="show('Mace')">
+
+Mace
+
 </button>
 
 </div>
 
 
+
 <h1 id="titulo">
+
 ALL Ranking
+
 </h1>
 
 
-<div id="conteudo"></div>
 
-
+<div id="conteudo">
 
 </div>
 
@@ -265,8 +419,8 @@ ALL Ranking
 <script>
 
 
-let senhaAdmin =
-"AstraTiers_Admin_2026_MCTiers_Ranking_Seguro_8472_Xp9KzL5Qw3Vn8Rt6Yh1";
+const senhaAdmin =
+"AstraTiers_Admin_2026hythh45g164444444444444444445y5";
 
 
 
@@ -275,114 +429,37 @@ let admin=false;
 
 
 let jogadores =
-JSON.parse(localStorage.getItem("jogadores")) || [];
+
+JSON.parse(
+localStorage.getItem("jogadores")
+) || [];
 
 
 
-// ATÉ 15 MODOS
+const ordem = [
 
-let modos =
-JSON.parse(localStorage.getItem("modos")) || 
-[
-"Vanilla",
-"Sword",
-"Axe",
-"UHC",
-"Pot",
-"NethPot",
-"SMP",
-"Mace"
-];
+"HT1",
+"HT2",
+"HT3",
+"HT4",
+"HT5",
 
+"LT1",
+"LT2",
+"LT3",
+"LT4",
+"LT5"
 
-
+];function loginAdmin(){
 
 
-function carregarModos(){
+let senha = prompt("Código Admin");
 
 
-let select =
-document.getElementById("modo");
+if(senha === senhaAdmin){
 
 
-select.innerHTML="";
-
-
-
-modos.forEach(m=>{
-
-
-select.innerHTML +=
-`
-<option>${m}</option>
-`;
-
-
-
-});
-
-
-
-
-
-let botoes =
-document.getElementById("botoesModos");
-
-
-
-botoes.innerHTML =
-
-`
-<button onclick="show('ALL')">
-ALL Ranking
-</button>
-`;
-
-
-
-modos.forEach(m=>{
-
-
-botoes.innerHTML +=
-
-`
-
-<button onclick="show('${m}')">
-
-${m}
-
-</button>
-
-`;
-
-
-
-});
-
-
-}
-
-
-
-carregarModos();
-
-
-
-
-
-
-function loginAdmin(){
-
-
-let senha =
-prompt("Código Admin");
-
-
-
-if(senha===senhaAdmin){
-
-
-admin=true;
+admin = true;
 
 
 document.getElementById("admin").style.display="block";
@@ -408,6 +485,22 @@ alert("Senha errada");
 
 
 
+function salvar(){
+
+
+localStorage.setItem(
+
+"jogadores",
+
+JSON.stringify(jogadores)
+
+);
+
+
+}
+
+
+
 
 
 function addPlayer(){
@@ -417,25 +510,62 @@ if(!admin)return;
 
 
 
-jogadores.push({
+let nome = nick.value.trim();
 
-nick:nick.value,
+let reg = regiao.value.trim();
 
-regiao:regiao.value,
+let md = modo.value;
 
-modo:modo.value,
-
-tier:tier.value
-
-
-});
+let tr = tier.value;
 
 
 
-save();
+if(nome==""){
+
+alert("Digite um nick");
+
+return;
+
+}
 
 
-show("ALL");
+
+
+// procura jogador existente
+
+
+let jogador = jogadores.find(
+
+j => j.nick.toLowerCase() == nome.toLowerCase()
+
+);
+
+
+
+
+
+// se não existir cria
+
+
+if(!jogador){
+
+
+jogador={
+
+
+nick:nome,
+
+
+regiao:reg,
+
+
+modos:{}
+
+
+};
+
+
+jogadores.push(jogador);
 
 
 }
@@ -444,14 +574,20 @@ show("ALL");
 
 
 
+// adiciona ou atualiza o modo
 
-function save(){
+
+jogador.modos[md]=tr;
 
 
-localStorage.setItem(
-"jogadores",
-JSON.stringify(jogadores)
-);
+
+
+salvar();
+
+
+
+show("ALL");
+
 
 
 }
@@ -464,24 +600,7 @@ JSON.stringify(jogadores)
 function converterTier(t){
 
 
-if(t=="HT1" || t=="LT1")
-return "Tier 1";
-
-
-if(t=="HT2" || t=="LT2")
-return "Tier 2";
-
-
-if(t=="HT3" || t=="LT3")
-return "Tier 3";
-
-
-if(t=="HT4" || t=="LT4")
-return "Tier 4";
-
-
-if(t=="HT5" || t=="LT5")
-return "Tier 5";
+return ordem.indexOf(t);
 
 
 }
@@ -490,22 +609,47 @@ return "Tier 5";
 
 
 
-function excluir(i){
+
+function ordenar(lista){
 
 
-if(!admin)return;
+return lista.sort((a,b)=>{
 
 
-jogadores.splice(i,1);
+return converterTier(a)-converterTier(b);
 
 
-save();
+});
 
 
-show("ALL");
+}function melhorTier(jogador){
+
+
+let tiers=[];
+
+
+
+Object.values(jogador.modos).forEach(t=>{
+
+
+tiers.push(converterTier(t));
+
+
+});
+
+
+
+return Math.min(...tiers);
 
 
 }
+
+
+
+
+
+
+
 function show(modo){
 
 
@@ -515,7 +659,7 @@ document.getElementById("conteudo");
 
 
 document.getElementById("titulo").innerHTML =
-modo+" Ranking";
+modo + " Ranking";
 
 
 
@@ -525,35 +669,23 @@ conteudo.innerHTML="";
 
 
 
+// =====================
 // ALL RANKING
+// =====================
+
 
 if(modo=="ALL"){
 
 
 
-let jogadoresUnicos = {};
+let lista=[...jogadores];
 
 
 
-jogadores.forEach((j,i)=>{
+lista.sort((a,b)=>{
 
 
-if(!jogadoresUnicos[j.nick]){
-
-
-jogadoresUnicos[j.nick]=[];
-
-
-}
-
-
-
-jogadoresUnicos[j.nick].push(
-
-j.modo + ": " + j.tier
-
-);
-
+return melhorTier(a)-melhorTier(b);
 
 
 });
@@ -562,8 +694,32 @@ j.modo + ": " + j.tier
 
 
 
+lista.forEach((j,i)=>{
 
-Object.keys(jogadoresUnicos).forEach(nick=>{
+
+
+let modosTexto="";
+
+
+
+Object.keys(j.modos).forEach(md=>{
+
+
+modosTexto +=
+
+`${md}: ${j.modos[md]} | `;
+
+
+
+});
+
+
+
+modosTexto =
+modosTexto.slice(0,-3);
+
+
+
 
 
 conteudo.innerHTML +=
@@ -573,11 +729,16 @@ conteudo.innerHTML +=
 <div class="player">
 
 
-<b>${nick}</b>
+<h3>
+#${i+1} ${j.nick}
+</h3>
 
-<br>
 
-${jogadoresUnicos[nick].join(" | ")}
+<p>
+
+${modosTexto}
+
+</p>
 
 
 
@@ -585,11 +746,11 @@ ${admin ?
 
 `
 
-<br><br>
+<br>
 
-<button onclick="excluir(${Object.keys(jogadoresUnicos).indexOf(nick)})">
+<button onclick="removerJogador(${i})">
 
-Excluir
+Excluir Jogador
 
 </button>
 
@@ -602,9 +763,7 @@ Excluir
 }
 
 
-
 </div>
-
 
 `;
 
@@ -616,22 +775,160 @@ Excluir
 
 }
 
+// =====================
+// RANKING POR MODO
+// =====================
 
-
-
-
-
-// MODOS INDIVIDUAIS
 
 else{
 
 
 
-conteudo.innerHTML=
+let lista=[];
+
+
+
+jogadores.forEach(j=>{
+
+
+
+if(j.modos[modo]){
+
+
+lista.push({
+
+
+nick:j.nick,
+
+
+tier:j.modos[modo]
+
+
+});
+
+
+
+}
+
+
+
+});
+
+
+
+
+
+lista.sort((a,b)=>{
+
+
+return converterTier(a.tier)-converterTier(b.tier);
+
+
+});
+
+
+
+
+
+
+
+conteudo.innerHTML =
 
 `
 
 <div class="tiers">
+
+
+<div class="tier">
+
+<h2>HT1</h2>
+
+${mostrarTier(lista,"HT1")}
+
+</div>
+
+
+<div class="tier">
+
+<h2>HT2</h2>
+
+${mostrarTier(lista,"HT2")}
+
+</div>
+
+
+<div class="tier">
+
+<h2>HT3</h2>
+
+${mostrarTier(lista,"HT3")}
+
+</div>
+
+
+<div class="tier">
+
+<h2>HT4</h2>
+
+${mostrarTier(lista,"HT4")}
+
+</div>
+
+
+<div class="tier">
+
+<h2>HT5</h2>
+
+${mostrarTier(lista,"HT5")}
+
+</div>
+
+
+<div class="tier">
+
+<h2>LT1</h2>
+
+${mostrarTier(lista,"LT1")}
+
+</div>
+
+
+<div class="tier">
+
+<h2>LT2</h2>
+
+${mostrarTier(lista,"LT2")}
+
+</div>
+
+
+<div class="tier">
+
+<h2>LT3</h2>
+
+${mostrarTier(lista,"LT3")}
+
+</div>
+
+
+<div class="tier">
+
+<h2>LT4</h2>
+
+${mostrarTier(lista,"LT4")}
+
+</div>
+
+
+<div class="tier">
+
+<h2>LT5</h2>
+
+${mostrarTier(lista,"LT5")}
+
+</div>
+
+
 
 </div>
 
@@ -639,49 +936,32 @@ conteudo.innerHTML=
 
 
 
-let area =
-document.querySelector(".tiers");
+}
 
 
 
+function mostrarTier(lista,tier){
 
-let lista=[
 
-"Tier 1",
-"Tier 2",
-"Tier 3",
-"Tier 4",
-"Tier 5"
-
-];
+let resultado="";
 
 
 
+lista.forEach(j=>{
 
 
-lista.forEach(t=>{
-
-
-
-let nomes="";
+if(j.tier == tier){
 
 
 
-jogadores.forEach(j=>{
-
-
-if(
-j.modo==modo &&
-converterTier(j.tier)==t
-){
-
-
-nomes +=
+resultado +=
 
 `
 
 <p>
+
 ${j.nick}
+
 </p>
 
 `;
@@ -698,37 +978,66 @@ ${j.nick}
 
 
 
-area.innerHTML +=
+if(resultado==""){
+
+
+resultado=
 
 `
 
-<div class="tier">
+<p>
 
+Nenhum jogador
 
-<h2>
-
-${t}
-
-</h2>
-
-
-${nomes}
-
-
-</div>
-
+</p>
 
 `;
-
-
-
-});
 
 
 
 }
 
 
+
+return resultado;
+
+
+}
+
+
+
+
+
+
+
+function removerJogador(id){
+
+
+if(!admin)return;
+
+
+
+let confirmar = confirm(
+
+"Remover esse jogador?"
+
+);
+
+
+
+if(!confirmar)return;
+
+
+
+jogadores.splice(id,1);
+
+
+
+salvar();
+
+
+
+show("ALL");
 
 
 
@@ -745,7 +1054,132 @@ show("ALL");
 
 
 </script>
+  let modosCriados = JSON.parse(
+localStorage.getItem("modosCriados")
+) || [
 
+"Vanilla",
+"Sword",
+"Axe",
+"UHC",
+"Pot",
+"NethPot",
+"SMP",
+"Mace"
+
+];
+
+
+
+function adicionarModo(){
+
+
+if(!admin){
+
+alert("Você não é admin");
+
+return;
+
+}
+
+
+
+let novo = document.getElementById("novoModo").value.trim();
+
+
+
+if(novo === ""){
+
+alert("Digite o nome do modo");
+
+return;
+
+}
+
+
+
+if(modosCriados.length >= 15){
+
+alert("Você já tem 15 modos");
+
+return;
+
+}
+
+
+
+if(modosCriados.includes(novo)){
+
+
+alert("Esse modo já existe");
+
+return;
+
+}
+
+
+
+modosCriados.push(novo);
+
+
+
+localStorage.setItem(
+
+"modosCriados",
+
+JSON.stringify(modosCriados)
+
+);
+
+
+
+atualizarModos();
+
+
+
+alert("Modo criado!");
+
+}
+
+
+
+
+
+function atualizarModos(){
+
+
+let select = document.getElementById("modo");
+
+
+
+select.innerHTML = "";
+
+
+
+modosCriados.forEach(m=>{
+
+
+select.innerHTML +=
+
+`
+
+<option>${m}</option>
+
+`;
+
+
+
+});
+
+
+}
+
+
+
+atualizarModos();
+
+
+</div>
 
 
 </body>
